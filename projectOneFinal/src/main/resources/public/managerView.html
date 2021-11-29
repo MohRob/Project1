@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="ISO-8859-1">
+<title>Course Details</title>
+<!-- INCLUDING JQUERY-->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<!-- CSS FOR STYLING THE PAGE -->
+<style>
+table {
+	margin: 0 auto;
+	font-size: large;
+	border: 1px solid black;
+}
+
+table2 {
+	margin: 0 auto;
+	font-size: large;
+	border: 1px solid black;
+}
+
+h1 {
+	text-align: center;
+	color: #006600;
+	font-size: xx-large;
+	font-family: 'Gill Sans', 'Gill Sans MT', ' Calibri', 'Trebuchet MS',
+		'sans-serif';
+}
+
+td {
+	background-color: #E4F5D4;
+	border: 1px solid black;
+}
+
+th, td {
+	font-weight: bold;
+	border: 1px solid black;
+	padding: 10px;
+	text-align: center;
+}
+
+td {
+	font-weight: lighter;
+}
+</style>
+</head>
+<body>
+<div>
+	
+		<h2 align="center">Pending Reimbursements for Review</h2>
+		<table id='table'>
+			<tr>
+				
+				<th>Reason</th>
+				<th>Amount</th>
+				<th>Status</th>
+				<!-- 				<th>Actions</th> -->
+			</tr>
+			<script>
+				$(document).ready(function() {
+					// FETCHING DATA FROM REST API End Point
+					$.ajax({
+						url : "http://localhost:7000/reimbursements"
+					}).then(function(data) {
+						var course = '';
+
+						// ITERATING THROUGH OBJECTS
+						$.each(data, function(key, value) {
+
+							//CONSTRUCTION OF ROWS HAVING
+							// DATA FROM JSON OBJECT
+							course += '<tr>';
+							
+
+							course += '<td>' + value.reason + '</td>';
+
+							course += '<td>' + value.amount + '</td>';
+
+							course += '<td>' + value.status + '</td>';
+							
+
+							course += '</tr>';
+						});
+
+						//INSERTING ROWS INTO TABLE
+						$('#table').append(course);
+					});
+				});
+			</script>
+			
+			</div>
+			<div>
+			<span>
+			
+			</span>
+
+			
+			</div>
+			<div>
+			
+
+				<table id='table2'>
+					<tr>
+
+						<th>Reason</th>
+						<th>Amount</th>
+						<th>Status</th>
+						<!-- 				<th>Actions</th> -->
+					</tr>
+					<script>
+						$(document)
+								.ready(
+										function() {
+											// FETCHING DATA FROM REST API End Point
+											$
+													.ajax(
+															{
+																url : "http://localhost:7000/reimbursement"
+															})
+													.then(
+															function(data) {
+																var course = '';
+
+																// ITERATING THROUGH OBJECTS
+																$
+																		.each(
+																				data,
+																				function(
+																						key,
+																						value) {
+
+																					//CONSTRUCTION OF ROWS HAVING
+																					// DATA FROM JSON OBJECT
+																					course += '<tr>';
+																		
+
+																					course += '<td>'
+																							+ value.reason
+																							+ '</td>';
+
+																					course += '<td>'
+																							+ value.amount
+																							+ '</td>';
+
+																					course += '<td>'
+																							+ value.status
+																							+ '</td>';
+
+																					course += '</tr>';
+																				});
+
+																//INSERTING ROWS INTO TABLE
+																$('#table2')
+																		.append(
+																				course);
+															});
+										});
+					</script>
+			
+			</div>
+</body>
+</html>

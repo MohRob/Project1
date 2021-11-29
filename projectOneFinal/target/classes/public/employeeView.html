@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+table {
+	margin: 0 auto;
+	font-size: large;
+	border: 1px solid black;
+}
+
+table2 {
+	margin: 0 auto;
+	font-size: large;
+	border: 1px solid black;
+}
+
+h1 {
+	text-align: center;
+	color: #006600;
+	font-size: xx-large;
+	font-family: 'Gill Sans', 'Gill Sans MT', ' Calibri', 'Trebuchet MS',
+		'sans-serif';
+}
+
+td {
+	background-color: #E4F5D4;
+	border: 1px solid black;
+}
+
+th, td {
+	font-weight: bold;
+	border: 1px solid black;
+	padding: 10px;
+	text-align: center;
+}
+
+td {
+	font-weight: lighter;
+}
+</style>
+</head>
+<body>
+	<div>
+		<h2 align="center">Request for new Reimbursement</h2>
+		<form action="/reimbursementForm" method="post">
+			<table align="center">
+				<tr>
+					<td>Enter a Reason for Reimbursement :</td>
+					<td><input type="text" name="reason" required="required"
+						placeholder="reason" /></td>
+				</tr>
+				<tr>
+					<td>Enter Amount :</td>
+					<td><input type="number" name="amount" required="required"
+						placeholder="Enter Amount Here" /></td>
+				</tr>
+				<tr>
+					<td><input type="reset" value="Clear"></td>
+					<td><input type="submit" value="Add Reimbursement"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div>
+		<table id='table'>
+			<tr>
+				<th>ID</th>
+				<th>Reason</th>
+				<th>Amount</th>
+				<th>Status</th>
+				<!-- 				<th>Actions</th> -->
+			</tr>
+			<script>
+				$(document).ready(function() {
+					// FETCHING DATA FROM REST API End Point
+					$.ajax({
+						url : "http://localhost:7000/esp"
+					}).then(function(data) {
+						var course = '';
+
+						// ITERATING THROUGH OBJECTS
+						$.each(data, function(key, value) {
+
+							//CONSTRUCTION OF ROWS HAVING
+							// DATA FROM JSON OBJECT
+							course += '<tr>';
+							course += '<td>' + value.reimbursementId + '</td>';
+
+							course += '<td>' + value.reason + '</td>';
+
+							course += '<td>' + value.amount + '</td>';
+
+							course += '<td>' + value.status + '</td>';
+
+							course += '</tr>';
+						});
+
+						//INSERTING ROWS INTO TABLE
+						$('#table2').append(course);
+					});
+				});
+			</script>
+
+			</div>
+</body>
+</body>
+</html>
